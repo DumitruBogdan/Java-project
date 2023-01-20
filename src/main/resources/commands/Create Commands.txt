@@ -1,0 +1,79 @@
+CREATE TABLE department(
+    id INT(2) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE user(
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(100) NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    department_id int NOT NULL,
+    email VARCHAR(105) NOT NULL UNIQUE,
+    password VARCHAR(100),
+    CONSTRAINT department_id FOREIGN KEY(department_id) REFERENCES department(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE interview_schedule(
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    start_date timestamp NOT NULL,
+    end_date date NOT NULL,
+    candidate_id INT(5) NOT NULL,
+    applied_department_id INT(2) NOT NULL,
+    interview_type enum('HR', 'TECHNICAL','HR_AND_TECHNICAL') NOT NULL,
+    CONSTRAINT applied_department_id FOREIGN KEY(applied_department_id) REFERENCES department(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE user_interview(
+    user_id INT(5) NOT NULL,
+    interview_id INT(5) NOT NULL,
+    PRIMARY KEY(user_id, interview_id),
+    CONSTRAINT user_id FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT interview_id FOREIGN KEY(interview_id) REFERENCES interview_schedule(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE interview_feedback(
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(5) NOT NULL,
+    interview_id INT(5) NOT NULL,
+    feedback_date timestamp NOT NULL,
+    candidate_status enum('ACCEPTED', 'NOT_ACCEPTED') NOT NULL,
+    proposed_role VARCHAR(30),
+    CONSTRAINT tech_user_id FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT tech_interview_id FOREIGN KEY(interview_id) REFERENCES interview_schedule(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE candidate(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    gender VARCHAR(6) NOT NULL,
+    email VARCHAR(100) NULL,
+    phone_number VARCHAR(12) NOT NULL UNIQUE,
+    country VARCHAR(100) NOT NULL,
+    address VARCHAR(100) NULL,
+    username VARCHAR(100) NULL,
+    password VARCHAR(100) NULL,
+    account_status enum('ACTIVE','ARCHIVED') NOT NULL DEFAULT 'ACTIVE',
+    last_login_date timestamp NOT NULL,
+    hired_status enum('GO','NO_GO') NULL
+);
+
+CREATE TABLE experience(
+    candidate_id INT NOT NULL PRIMARY KEY,
+    cv_name VARCHAR(100) NULL DEFAULT NULL,
+    cv LONGBLOB NULL DEFAULT NULL,
+    gdpr_name VARCHAR(100) NULL DEFAULT NULL,
+    gdpr LONGBLOB NULL DEFAULT NULL,
+    comments VARCHAR(255) NULL DEFAULT NULL,
+    CONSTRAINT candidate_id FOREIGN KEY (candidate_id) REFERENCES recruitment.candidate (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE candidate_comments(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    candidate_id INT NOT NULL,
+    user_id INT NOT NULL,
+    comment VARCHAR(255) NOT NULL,
+    date timestamp NOT NULL,
+    CONSTRAINT c_id FOREIGN KEY (candidate_id) REFERENCES candidate(id) ON DELETE CASCADE ON UPDATE CASCADE
+);

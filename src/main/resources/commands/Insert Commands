@@ -1,0 +1,69 @@
+-- Populate Deparment
+INSERT INTO department (name) VALUES ('Java');
+INSERT INTO department (name) VALUES ('Microsoft');
+INSERT INTO department (name) VALUES ('WEB');
+INSERT INTO department (name) VALUES ('Human Resources');
+INSERT INTO department (name) VALUES ('IT');
+INSERT INTO department (name) VALUES ('Sales Management');
+
+-- Populate User
+insert into user (role_name, department_id, first_name, last_name, email, password) VALUES ('PTE', 1, 'Vasile', 'Popescu', 'vasile.popescu@gmail.com' ,'eBJ7iRwhlcRP0Qyq/VREO1MbXFm+3pVZ2J+TPnqwTF6GhAg1K7iJU7/tVystQdr8');
+insert into user (role_name, department_id, first_name, last_name, email, password) VALUES ('PTE', 2, 'Gheorghe', 'Lazar', 'gheorghe.lazar@gmail.com', 'i3Rnf1ePMED5oM9Z5NZD3JyzmNB2qZ0JyQ/ed3AJ36QI2Ym/VmZBVD3mUJ3xyHLd');
+insert into user (role_name, department_id, first_name, last_name, email, password) VALUES ('ADMIN', 2, 'Maria', 'Magdalena', 'maria.magdalena@gmail.com', 'uUvUGLgyD2n62KIHj/845XNAmzImNtR4KgjIhceN10ATsMrw3RCoxU9Z9VfJvkkR');
+insert into user (role_name, department_id, first_name, last_name, email, password) VALUES ('ADMIN', 1, 'Bill', 'Gates', 'bill.gates@gmail.com', 't6Ay1JxgbyrtS9ReYsWAdo5nN2lVeKf+zsAZIeGLeBBAYo+jXpB+vBNqOyK8CUhY');
+insert into user (role_name, department_id, first_name, last_name, email, password) VALUES ('TECHNICAL_INTERVIEWER', 3,  'Dalia','Negoescu', 'dalia.negoescu@gmail.com', 'SDgkKNhPFoRROaaSwSKe5Fm1+WX/pGv9Ul+ImT3WcTI4FWc2mju52qUh99zLlpw2');
+insert into user (role_name, department_id, first_name, last_name, email, password) VALUES ('TECHNICAL_INTERVIEWER', 1, 'Paul', 'Mihai', 'paul.mihai@gmail.com', 'bnR8mYijqhKtoRrneAOtVfVAmm8HhNdB1SN1A6vhieiA7CosTtlgstKXgDwQXzes');
+insert into user (role_name, department_id, first_name, last_name, email) VALUES ('TECHNICAL_INTERVIEWER', 2, 'Istvan', 'Ivan', 'istvan.ivan@gmail.com');
+insert into user (role_name, department_id, first_name, last_name, email, password) VALUES ('HR_REPRESENTATIVE', 3, 'Elena', 'Marinescu', 'elena.marinescu@gmail.com', '9kIihDtXZnM8N0I8k3ncgLyU5pWKQJTX6/owrSmEY9VqX+z3RGYnm9ytNFOmAvWo');
+insert into user (role_name, department_id, first_name, last_name, email) VALUES ('HR_REPRESENTATIVE', 1, 'Eva', 'Mihalache', 'eva.mihalache@gamil.com');
+insert into user (role_name, department_id, first_name, last_name, email) VALUES ('HR_REPRESENTATIVE', 1, 'Georgiana', 'Avram', 'gerogiana.avram@gmail.com');
+
+-- Populate Interview Schedule
+INSERT INTO interview_schedule (start_date, end_date, candidate_id, applied_department_id, interview_type) VALUES ('2022-03-15 14:15:00', '2022-03-15 15:15:00', 121, 1, 'HR');
+INSERT INTO interview_schedule (start_date, end_date, candidate_id, applied_department_id, interview_type) VALUES ('2022-05-17 11:00:00', '2022-05-17 12:00:00', 3, 2, 'TECHNICAL');
+INSERT INTO interview_schedule (start_date, end_date, candidate_id, applied_department_id, interview_type) VALUES ('2022-12-15 14:15:00', '2022-12-15 16:15:00', 14, 3, 'HR_AND_TECHNICAL');
+INSERT INTO interview_schedule (start_date, end_date, candidate_id, applied_department_id, interview_type) VALUES ('2022-03-15 14:15:00', '2022-03-15 14:15:00', 34, 4, 'TECHNICAL');
+INSERT INTO interview_schedule (start_date, end_date, candidate_id, applied_department_id, interview_type) VALUES ('2022-03-15 14:15:00', '2022-03-15 14:15:00', 8, 5, 'HR');
+INSERT INTO interview_schedule (start_date, end_date, candidate_id, applied_department_id, interview_type) VALUES ('2022-03-15 14:15:00', '2022-03-15 14:15:00', 29, 6, 'HR_AND_TECHNICAL');
+INSERT INTO interview_schedule (start_date, end_date, candidate_id, applied_department_id, interview_type) VALUES ('2022-03-15 14:15:00', '2022-03-15 14:15:00', 543, 1, 'HR');
+INSERT INTO interview_schedule (start_date, end_date, candidate_id, applied_department_id, interview_type) VALUES ('2022-03-15 14:15:00', '2022-03-15 14:15:00', 128, 2, 'TECHNICAL');
+INSERT INTO interview_schedule (start_date, end_date, candidate_id, applied_department_id, interview_type) VALUES ('2022-03-15 14:15:00', '2022-03-15 14:15:00', 19, 3, 'HR');
+INSERT INTO interview_schedule (start_date, end_date, candidate_id, applied_department_id, interview_type) VALUES ('2022-03-15 14:15:00', '2022-03-15 14:15:00', 1, 4, 'TECHNICAL');
+
+-- Populate User Interview
+INSERT INTO user_interview (user_id, interview_id) VALUES (2, 3);
+INSERT INTO user_interview (user_id, interview_id) VALUES (4, 3);
+INSERT INTO user_interview (user_id, interview_id) VALUES (2, 6);
+INSERT INTO user_interview (user_id, interview_id) VALUES (4, 6);
+INSERT INTO user_interview (user_id, interview_id) VALUES (2, 1);
+INSERT INTO user_interview (user_id, interview_id) VALUES (2, 9);
+INSERT INTO user_interview (user_id, interview_id) VALUES (4, 2);
+INSERT INTO user_interview (user_id, interview_id) VALUES (4, 4);
+INSERT INTO user_interview (user_id, interview_id) VALUES (2, 5);
+INSERT INTO user_interview (user_id, interview_id) VALUES (2, 10);
+INSERT INTO user_interview (user_id, interview_id) VALUES (2, 7);
+INSERT INTO user_interview (user_id, interview_id) VALUES (4, 8);
+
+-- Populate Candidate
+INSERT INTO candidate (id, first_name, last_name, gender, email, phone_number, country, address, username, password, last_login_date, hired_status) VALUES (1, 'George', 'Sebastian', 'Male', 'george_sebastian@yahoo.com', '792-581-5883', 'Romania', '82647 Marcy Drive', 'georgesebastian', 'Z3X4MyZCsh7z', '2020-03-15 14:15:00', 'GO');
+INSERT INTO candidate (id, first_name, last_name, gender, email, phone_number, country, address, username, password, last_login_date, hired_status) VALUES (2, 'Martin', 'Steven', 'Female', 'stevenmartin1@gmail.com', '998-253-8290', 'Honduras', '882 Waubesa Crossing', 'stevenmartin1', 'DMbOQ57MPX', '2022-03-15 14:15:00', 'GO');
+INSERT INTO candidate (id, first_name, last_name, gender, email, phone_number, country, address, username, password, last_login_date, hired_status) VALUES (3, 'Stacey', 'Trump', 'Female', 'stacey12@yahoo.com', '487-645-7519', 'China', '608 Center Road', 'stacey21', '05Tq3DcpGO', '2022-07-15 14:15:00', 'GO');
+INSERT INTO candidate (id, first_name, last_name, gender, email, phone_number, country, address, username, password, last_login_date, hired_status) VALUES (4, 'Joseph', 'John', 'Male', 'jelbourne3@gmail.com', '963-983-9552', 'Colombia', '2 Menomonie Terrace', 'jelbourne3', 'R06Fx9a2APrP', '2022-06-15 14:15:00', 'NO_GO');
+INSERT INTO candidate (id, first_name, last_name, gender, email, phone_number, country, address, username, password, last_login_date, hired_status) VALUES (5, 'Calvin', 'Stevens', 'Male', 'cstarmont4@gmail.com', '477-296-8611', 'Indonesia', '20 Packers Park', 'cstarmont4', 'AJXROzjOd', '2022-06-15 14:15:00', 'GO');
+INSERT INTO candidate (id, first_name, last_name, gender, email, phone_number, country, address, username, password, last_login_date, hired_status) VALUES (6, 'Britney', 'Grace', 'Female', 'britney5@gmail.com', '544-278-7886', 'Solomon Islands', '303 Ridgeview Terrace', 'britney05', 'WtXmLxC', '2022-03-15 14:15:00', 'NO_GO');
+INSERT INTO candidate (id, first_name, last_name, gender, email, phone_number, country, address, username, password, last_login_date, hired_status) VALUES (7, 'Grace', 'Peter', 'Male', 'grace_peter@yahoo.com', '573-367-6998', 'Poland', '44634 Heath Center', 'gracepeter23', 'bQFkmKS', '2022-03-15 14:15:00', 'GO');
+INSERT INTO candidate (id, first_name, last_name, gender, email, phone_number, country, address, username, password, last_login_date, hired_status) VALUES (8, 'Neila', 'Peter', 'Female', 'neila.peter@yahoo.com', '530-147-0349', 'Nicaragua', '97391 Rieder Terrace', 'petergrace', 'yZIgPegFTnPZ', '2022-03-15 14:15:00', 'GO');
+INSERT INTO candidate (id, first_name, last_name, gender, email, phone_number, country, address, username, password, last_login_date, hired_status) VALUES (9, 'Steven', 'Love', 'Male', 'love_steven@yahoo.com', '925-147-7283', 'Iran', '5669 Park Meadow Terrace', 'steven08', 'cfIJkPRWc7A', '2022-03-15 14:15:00', 'NO_GO');
+INSERT INTO candidate (id, first_name, last_name, gender, email, phone_number, country, address, username, password, last_login_date, hired_status) VALUES (10, 'John', 'Martin', 'Male', 'martin.john@yahoo.com', '414-439-3146', 'Sweden', '22582 Eastlawn Terrace', 'martin30', 'jTfKVEYpfEg1', '2022-03-15 14:15:00', 'NO_GO');
+
+-- Populate Experience
+INSERT INTO experience (candidate_id, cv_name, cv, gdpr_name, gdpr, comments) VALUES (1, 'document1', 3644, null, 123, 'I work really hard!');
+INSERT INTO experience (candidate_id, cv_name, cv, gdpr_name, gdpr, comments) VALUES (2, 'document2', 3749, null, 144, 'I play alot of football');
+INSERT INTO experience (candidate_id, cv_name, cv, gdpr_name, gdpr, comments) VALUES (3, null, 780, null, 323, null);
+INSERT INTO experience (candidate_id, cv_name, cv, gdpr_name, gdpr, comments) VALUES (4, null, 2419, null, 2321, null);
+INSERT INTO experience (candidate_id, cv_name, cv, gdpr_name, gdpr, comments) VALUES (5, null, 2416, null, 3211, null);
+INSERT INTO experience (candidate_id, cv_name, cv, gdpr_name, gdpr, comments) VALUES (6, null, 957, null, 111, null);
+INSERT INTO experience (candidate_id, cv_name, cv, gdpr_name, gdpr, comments) VALUES (7, null, 4955, null, 5321, null);
+INSERT INTO experience (candidate_id, cv_name, cv, gdpr_name, gdpr, comments) VALUES (8, null, 473, null, 421, null);
+INSERT INTO experience (candidate_id, cv_name, cv, gdpr_name, gdpr, comments) VALUES (9, null, 1871, null, 1341, null);
+INSERT INTO experience (candidate_id, cv_name, cv, gdpr_name, gdpr, comments) VALUES (10, null, 2914, null, 2321, null);
