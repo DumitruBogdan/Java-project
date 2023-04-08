@@ -1,5 +1,6 @@
 package com.recruitment.dto;
 
+import com.recruitment.domain.Candidate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExperienceDTO {
-    private Long candidateId;
+    private Candidate candidate;
     @NotNull
     private String cvName;
     @NotNull

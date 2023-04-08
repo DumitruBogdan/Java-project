@@ -1,106 +1,64 @@
 package com.recruitment.controller;
 
+import com.recruitment.domain.User;
 import com.recruitment.dto.UserDTO;
-import com.recruitment.exception.handler.ErrorResponse;
 import com.recruitment.service.UserService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/users")
+@Controller
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @Operation(summary = "Get all users", responses = {
-            @ApiResponse(description = "Received all users", responseCode = "200",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))),
-            @ApiResponse(description = "Internal Server error", responseCode = "500",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
-    })
-    @GetMapping
-    public List<UserDTO> getAllUsers() {
-        return userService.getAllUsers();
+    @RequestMapping("")
+    public ModelAndView users(){
+        ModelAndView modelAndView = new ModelAndView("usersList");
+        List<UserDTO> users = userService.getAllUsers();
+        modelAndView.addObject("users", users);
+        return modelAndView;
     }
 
-    @Operation(summary = "Get user", responses = {
-            @ApiResponse(description = "Found user", responseCode = "200",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))),
-            @ApiResponse(description = "User not found", responseCode = "404",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(description = "Internal Server error", responseCode = "500",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
-    })
+    @RequestMapping("/form")
+    public String userForm(Model model) {
+        model.addAttribute("user", new User());
+        return "userForm";
+    }
+
     @GetMapping("/{id}")
-    public UserDTO getUserById(@Parameter(description = "ID of the user we want to get")
-                               @PathVariable(value = "id") Long userId) {
-        return userService.getUserById(userId);
+    public String getUserById(@PathVariable Long id, Model model) {
+        UserDTO userDTO = userService.getUserById(id);
+        model.addAttribute("user", userDTO);
+        return "userDetails";
     }
 
-    @Operation(summary = "Get assigned candidates", responses = {
-            @ApiResponse(description = "Found assigned candidates", responseCode = "200",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))),
-            @ApiResponse(description = "Assugned candidates not found", responseCode = "404",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(description = "Internal Server error", responseCode = "500",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
-    })
     @GetMapping("/assigned/{id}")
-    public List<Long> getAssignedCandidates(@Parameter(description = "ID of the user that wants to get the assigned candidates")
-                                            @PathVariable(value = "id") Long userId) {
+    public List<Long> getAssignedCandidates(@PathVariable(value = "id") Long userId) {
         return userService.getAssignedCandidates(userId);
     }
 
-    @Operation(summary = "Create user", responses = {
-            @ApiResponse(description = "Created user", responseCode = "200",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))),
-            @ApiResponse(description = "User already exists", responseCode = "409",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(description = "Internal Server error", responseCode = "500",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
-    })
     @PostMapping
-    public UserDTO createUser(@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User structure")
-                              @RequestBody UserDTO createUser) {
-        return userService.create(createUser);
+    public String createUser(@ModelAttribute UserDTO userDTO) {
+        userService.create(userDTO);
+        return "redirect:/users";
     }
 
-    @Operation(summary = "Update user", responses = {
-            @ApiResponse(description = "Updated user", responseCode = "200",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))),
-            @ApiResponse(description = "User not found", responseCode = "404",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(description = "Internal Server error", responseCode = "500",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
-    })
     @PutMapping("/{id}")
-    public UserDTO updateUser(@Parameter(description = "ID of the user we want to update")
-                              @PathVariable("id") Long userId,
-                              @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User structure")
-                              @RequestBody UserDTO updateUser) {
+    public UserDTO updateUser(@PathVariable("id") Long userId, @RequestBody UserDTO updateUser) {
         updateUser.setId(userId);
         return userService.update(updateUser);
     }
 
-    @Operation(summary = "Delete user", responses = {
-            @ApiResponse(description = "Deleted user", responseCode = "200",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))),
-            @ApiResponse(description = "User not found", responseCode = "404",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(description = "Internal Server error", responseCode = "500",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
-    })
-    @DeleteMapping("/{id}")
-    public void deleteUser(@Parameter(description = "ID of the user we want to delete")
-                           @PathVariable("id") Long userId) {
-        userService.deleteUser(userId);
+    @RequestMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return "redirect:/users";
     }
 }

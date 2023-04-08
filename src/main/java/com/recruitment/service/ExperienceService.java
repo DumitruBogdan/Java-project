@@ -31,7 +31,7 @@ public class ExperienceService {
 
     public ExperienceDTO createExperience(ExperienceDTO experience) {
         Experience savedExperience = experienceRepository.save(ExperienceMapper.buildEntity(experience));
-        log.info("Experience saved for candidate with id: {}", experience.getCandidateId());
+        log.info("Experience saved for candidate with id: {}", experience.getCandidate().getId());
         return ExperienceMapper.buildDTO(savedExperience);
     }
 
@@ -43,7 +43,7 @@ public class ExperienceService {
         Experience updatedExperience;
         if (isDocumentValid(document)) {
             updatedExperience = saveUpdatedExperience(experienceDTO, document, docType);
-            log.info("Saved updated experience for candidate with id: {}", experienceDTO.getCandidateId());
+//            log.info("Saved updated experience for candidate with id: {}", experienceDTO.getCandidateId());
 
         } else {
             log.error("The document format is not supported! Please insert a pdf, doc or docx document.");
@@ -62,10 +62,10 @@ public class ExperienceService {
     }
 
     private Experience saveUpdatedExperience(ExperienceDTO experienceDTO, MultipartFile document, DocumentType docType) {
-        Optional<Experience> dbExperience = experienceRepository.findById(experienceDTO.getCandidateId());
+        Optional<Experience> dbExperience =null;// experienceRepository.findById(experienceDTO.getCandidateId());
         if (dbExperience.isEmpty()) {
-            log.error("User with id: {} not found. Can't fulfill update operation.", experienceDTO.getCandidateId());
-            throw new ResourceNotFoundException("User with id: " + experienceDTO.getCandidateId() + " not found.");
+//            log.error("User with id: {} not found. Can't fulfill update operation.", experienceDTO.getCandidateId());
+//            throw new ResourceNotFoundException("User with id: " + experienceDTO.getCandidateId() + " not found.");
         }
         Experience experienceUpdated = dbExperience.get();
         try {
@@ -79,7 +79,7 @@ public class ExperienceService {
             }
             experienceUpdated.setComments(experienceDTO.getComments());
         } catch (IOException ioException) {
-            log.error("The file could not be read for experience with id: {}.", experienceDTO.getCandidateId());
+//            log.error("The file could not be read for experience with id: {}.", experienceDTO.getCandidateId());
             throw new DocumentInvalidException("The file could not be read.");
         }
         return experienceRepository.save(experienceUpdated);
@@ -110,5 +110,9 @@ public class ExperienceService {
             throw new ResourceNotFoundException("Experience with id: " + id + " not found.");
         }
         return document;
+    }
+
+    public ExperienceDTO getByCandidateId(Long id) {
+        return ExperienceMapper.buildDTO(experienceRepository.getById(id));
     }
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Data
 @Entity
@@ -16,8 +17,7 @@ import javax.validation.constraints.Size;
 @Table(name = "experience")
 public class Experience {
     @Id
-    @Column(name = "candidate_id")
-    private Long candidateId;
+    private Long id;
 
     private String cvName;
 
@@ -31,4 +31,9 @@ public class Experience {
     private byte[] gdpr;
 
     private String comments;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id")
+    private Candidate candidate;
 }

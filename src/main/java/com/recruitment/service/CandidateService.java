@@ -1,6 +1,7 @@
 package com.recruitment.service;
 
 import com.recruitment.domain.Candidate;
+import com.recruitment.domain.Experience;
 import com.recruitment.domain.enums.AccountStatus;
 import com.recruitment.dto.CandidateDTO;
 import com.recruitment.dto.SearchDTO;
@@ -8,11 +9,13 @@ import com.recruitment.exception.EntityAlreadyExistsException;
 import com.recruitment.exception.ResourceNotFoundException;
 import com.recruitment.mapper.CandidateMapper;
 import com.recruitment.repository.CandidateRepository;
+import com.recruitment.repository.ExperienceRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -24,7 +27,10 @@ import java.util.Optional;
 public class CandidateService {
     @Autowired
     CandidateRepository candidateRepository;
+    @Autowired
+    ExperienceRepository experienceRepository;
 
+    @Transactional
     public CandidateDTO createCandidate(CandidateDTO candidateDTO) {
         System.out.println(candidateDTO);
         if (candidateRepository.existsByUsername(candidateDTO.getUsername())) {
@@ -32,10 +38,12 @@ public class CandidateService {
             throw new EntityAlreadyExistsException("User already exists!");
         }
         Candidate createdCandidate = candidateRepository.save(CandidateMapper.buildEntity(candidateDTO));
+        experienceRepository.save(Experience.builder().candidate(createdCandidate).build());
         log.info("Candidate with id: {} was created with success.", createdCandidate.getId());
         return CandidateMapper.buildDTO(createdCandidate);
     }
 
+    @Transactional
     public void deleteCandidate(Long id) {
         if (!candidateRepository.existsById(id)) {
             log.warn("No candidate with id: {} exist in database", id);

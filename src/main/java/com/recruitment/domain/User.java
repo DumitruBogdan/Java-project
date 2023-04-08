@@ -29,7 +29,9 @@ public class User {
 
     private String email;
 
-    private Integer departmentId;
+    @ManyToOne
+    @JoinColumn(name="department_id", nullable = false)
+    private Department department;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;

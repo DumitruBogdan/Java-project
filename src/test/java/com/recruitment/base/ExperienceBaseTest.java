@@ -1,5 +1,6 @@
 package com.recruitment.base;
 
+import com.recruitment.domain.Candidate;
 import com.recruitment.domain.Experience;
 import com.recruitment.domain.enums.DocumentType;
 import com.recruitment.dto.ExperienceDTO;
@@ -18,7 +19,7 @@ public class ExperienceBaseTest {
     public void init() {
 
         experienceDTO = ExperienceDTO.builder()
-                .candidateId(1L)
+                .candidate(Candidate.builder().id(1L).build())
                 .cvName("document1")
                 .comments("I work really hard!")
                 .build();
@@ -26,7 +27,7 @@ public class ExperienceBaseTest {
         experienceResponseDTO = experienceDTO;
 
         experienceId1 = Experience.builder()
-                .candidateId(1L)
+                .candidate(Candidate.builder().id(1L).build())
                 .cvName("document1")
                 .comments("I work really hard!")
                 .build();

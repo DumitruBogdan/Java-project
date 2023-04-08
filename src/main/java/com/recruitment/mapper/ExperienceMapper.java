@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class ExperienceMapper {
     public static Experience buildEntity(ExperienceDTO experienceDTO) {
         return Experience.builder()
-                .candidateId(experienceDTO.getCandidateId())
+                .candidate(experienceDTO.getCandidate())
                 .cvName(experienceDTO.getCvName())
                 .gdprName(experienceDTO.getGdprName())
                 .comments(experienceDTO.getComments())
@@ -18,7 +18,7 @@ public class ExperienceMapper {
 
     public static ExperienceDTO buildDTO(Experience experience) {
         return ExperienceDTO.builder()
-                .candidateId(experience.getCandidateId())
+                .candidate(experience.getCandidate())
                 .cvName(experience.getCvName())
                 .gdprName(experience.getGdprName())
                 .comments(experience.getComments())

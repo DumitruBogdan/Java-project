@@ -86,7 +86,7 @@ class UserControllerFunctionalTest extends UserBaseTest {
                 .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.roleName").value(dto.getRoleName().name()))
-                .andExpect(jsonPath("$.departmentId").value(dto.getDepartmentId()))
+                .andExpect(jsonPath("$.departmentId").value(dto.getDepartment()))
                 .andExpect(jsonPath("$.firstName").value(dto.getFirstName()))
                 .andExpect(jsonPath("$.lastName").value(dto.getLastName()))
                 .andExpect(jsonPath("$.email").value(dto.getEmail()));
@@ -112,7 +112,7 @@ class UserControllerFunctionalTest extends UserBaseTest {
                 .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.roleName").value(dto.getRoleName().name()))
-                .andExpect(jsonPath("$.departmentId").value(dto.getDepartmentId()))
+                .andExpect(jsonPath("$.departmentId").value(dto.getDepartment()))
                 .andExpect(jsonPath("$.firstName").value(dto.getFirstName()))
                 .andExpect(jsonPath("$.lastName").value(dto.getLastName()))
                 .andExpect(jsonPath("$.email").value(dto.getEmail()));

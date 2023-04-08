@@ -1,6 +1,7 @@
 package com.recruitment.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.recruitment.domain.Department;
 import com.recruitment.domain.enums.Role;
 import lombok.Builder;
 import lombok.Data;
@@ -34,7 +35,7 @@ public class UserDTO {
     private String email;
 
     @NotNull
-    private Integer departmentId;
+    private Department department;
 
     @NotNull
     @NotBlank

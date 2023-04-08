@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+ .split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+ .left {
+  left: 0;
+  background-color: #EFD9CE;
+  transition: 0.3s;
+}
+
+.left:hover {background-color: rgba(239,217,206,0.5)}
+
+.right {
+  right: 0;
+  background-color: #DEC0F1;
+  transition: 0.3s;
+}
+
+.right:hover {background-color: rgba(222,192,241,0.5)}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.btn {
+  border: none;
+  color: black;
+  font-weight: bold;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition: 0.3s;
+}
+
+.btn:hover {opacity: 1}
+</style>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div>
+    <div class="split left">
+        <div class="centered">
+            <a href="candidates"><button class="btn">Candidate</button></a>
+        </div>
+    </div>
+
+    <div class="split right">
+        <div class="centered">
+            <a href="users"><button class="btn">User</button></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -14,16 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.util.MultiValueMap;
 
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
@@ -57,29 +53,6 @@ class ExperienceControllerFunctionalTest extends ExperienceBaseTest {
                 .content(mapperBuilder.build().writeValueAsString(experienceDTO)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.candidateId").value("1"));
-    }
-
-    @Test
-    @Disabled("Disabled until finding the solution for sending the MultipartFile")
-    void shouldReturnErrorWhenDocumentFormatIsInvalid() throws Exception {
-//        MockMultipartFile file = new MockMultipartFile("file", "file", MediaType.TEXT_PLAIN_VALUE,
-//                "Hello World".getBytes());
-//
-//        given(experienceService.uploadExperience(experienceDTO, document, documentType))
-//                .willThrow(new DocumentInvalidException("The document format is not supported!"));
-//        MultiMap<String, String> params = new ArrayListValuedHashMap<String, String>();
-//        params.put("experience", experienceId1.toString());
-//        params.put("docType", DocumentType.CV.toString());
-//
-//        this.mockMvc.perform(MockMvcRequestBuilders.multipart("/api/experiences/upload")
-//                .file(file)
-//                .params(params)
-//                .with(request -> {
-//                    request.setMethod("PATCH");
-//                    return request;
-//                }))
-//                .andExpect(status().isConflict())
-//                .andExpect(jsonPath("$.message").value("The document format is not supported!"));
     }
 
     @Test

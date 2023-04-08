@@ -50,6 +50,10 @@ public class Candidate {
     @Enumerated(EnumType.STRING)
     private HiredStatus hiredStatus;
 
+    @OneToOne(mappedBy = "candidate", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    private Experience experience;
+
+
     @PrePersist
     public void prePersist() {
         accountStatus = AccountStatus.ACTIVE;

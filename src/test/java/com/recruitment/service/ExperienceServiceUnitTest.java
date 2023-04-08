@@ -73,7 +73,7 @@ import static org.mockito.Mockito.when;
     @Test
     void shouldThrowExceptionWhenDocumentsCandidateNotFoundForUpload() {
         // given
-        when(experienceRepository.findById(experienceDTO.getCandidateId())).thenReturn(Optional.empty());
+        when(experienceRepository.findById(experienceDTO.getCandidate().getId())).thenReturn(Optional.empty());
 
         // when
         ResourceNotFoundException resourceNotFoundException = assertThrows(ResourceNotFoundException.class, () ->
@@ -111,7 +111,7 @@ import static org.mockito.Mockito.when;
         );
 
         Experience updatedExperience = Experience.builder().cvName("document1.pdf").build();
-        when(experienceRepository.findById(experienceDTO.getCandidateId())).thenReturn(Optional.of(experienceId1));
+        when(experienceRepository.findById(experienceDTO.getCandidate().getId())).thenReturn(Optional.of(experienceId1));
         when(experienceRepository.save(experienceId1)).thenReturn(updatedExperience);
 
         // when
@@ -133,7 +133,7 @@ import static org.mockito.Mockito.when;
         );
 
         Experience updatedExperience = Experience.builder().gdprName("document1.pdf").build();
-        when(experienceRepository.findById(experienceDTO.getCandidateId())).thenReturn(Optional.of(experienceId1));
+        when(experienceRepository.findById(experienceDTO.getCandidate().getId())).thenReturn(Optional.of(experienceId1));
         when(experienceRepository.save(experienceId1)).thenReturn(updatedExperience);
 
         // when
@@ -145,9 +145,9 @@ import static org.mockito.Mockito.when;
 
     @Test
     void shouldThrowExceptionWhenExperienceNotFoundForDownload() {
-        when(experienceRepository.findById(experienceDTO.getCandidateId())).thenReturn(Optional.empty());
+        when(experienceRepository.findById(experienceDTO.getCandidate().getId())).thenReturn(Optional.empty());
         ResourceNotFoundException resourceNotFoundException = assertThrows(ResourceNotFoundException.class, () ->
-                experienceService.getDocumentDetails(experienceDTO.getCandidateId(), documentType));
+                experienceService.getDocumentDetails(experienceDTO.getCandidate().getId(), documentType));
         assertEquals("Experience with id: " + EXPERIENCE_ID + " not found.", resourceNotFoundException.getMessage());
     }
 
@@ -195,11 +195,11 @@ import static org.mockito.Mockito.when;
     @Test
     void shouldThrowExceptionWhenCvNotFoundForDownload() {
         // given
-        when(experienceRepository.findById(experienceDTO.getCandidateId())).thenReturn(Optional.ofNullable(experienceId1));
+        when(experienceRepository.findById(experienceDTO.getCandidate().getId())).thenReturn(Optional.ofNullable(experienceId1));
 
         // when
         ResourceNotFoundException resourceNotFoundException = assertThrows(ResourceNotFoundException.class, () ->
-                experienceService.getDocumentDetails(experienceDTO.getCandidateId(), documentType));
+                experienceService.getDocumentDetails(experienceDTO.getCandidate().getId(), documentType));
 
         // then
         assertEquals("Experience with id: " + EXPERIENCE_ID + " does not have a cv document in the database",
@@ -210,11 +210,11 @@ import static org.mockito.Mockito.when;
     void shouldThrowExceptionWhenGdprNotFoundForDownload() {
         // given
         DocumentType gdprType = DocumentType.GDPR;
-        when(experienceRepository.findById(experienceDTO.getCandidateId())).thenReturn(Optional.ofNullable(experienceId1));
+        when(experienceRepository.findById(experienceDTO.getCandidate().getId())).thenReturn(Optional.ofNullable(experienceId1));
 
         // when
         ResourceNotFoundException resourceNotFoundException = assertThrows(ResourceNotFoundException.class, () ->
-                experienceService.getDocumentDetails(experienceDTO.getCandidateId(), gdprType));
+                experienceService.getDocumentDetails(experienceDTO.getCandidate().getId(), gdprType));
 
         // then
         assertEquals("Experience with id: " + EXPERIENCE_ID + " does not have a gdpr document in the database",
